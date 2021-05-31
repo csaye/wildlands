@@ -10,6 +10,7 @@ namespace Wildlands
         public GraphicsDeviceManager Graphics { get; private set; }
         public SpriteBatch SpriteBatch { get; private set; }
 
+        public Camera Camera { get; private set; }
         public ObjectManager ObjectManager { get; private set; }
         public Player Player { get; private set; }
 
@@ -24,6 +25,7 @@ namespace Wildlands
             IsMouseVisible = true;
 
             // Initialize objects
+            Camera = new Camera();
             ObjectManager = new ObjectManager();
             Player = new Player(0, 0, Grid, Grid);
             ObjectManager.AddObject(Player);
@@ -53,6 +55,7 @@ namespace Wildlands
             if (KeyboardState.IsKeyDown(Keys.Escape)) Exit();
 
             ObjectManager.Update(this, delta); // Update objects
+            Camera.Update(this); // Update camera
 
             base.Update(gameTime);
         }
@@ -61,9 +64,9 @@ namespace Wildlands
         {
             GraphicsDevice.Clear(Color.Black);
 
-            SpriteBatch.Begin(); // Begin sprite batch
-            ObjectManager.Draw(this); // Draw obejcts
-            SpriteBatch.End(); // End sprite batch
+            SpriteBatch.Begin(transformMatrix: Camera.Transform); // Begin world sprite batch
+            ObjectManager.Draw(this); // Draw objects
+            SpriteBatch.End(); // End world sprite batch
 
             base.Draw(gameTime);
         }

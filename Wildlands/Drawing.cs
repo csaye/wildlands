@@ -7,16 +7,20 @@ namespace Wildlands
     {
         // Grid and pixel size
         public const int Grid = 32;
-        public const int PixelsPerGrid = 16;
+        private const int PixelsPerGrid = 16;
         public const int Pixel = Grid / PixelsPerGrid;
 
-        // Grid dimensions
-        public const int GridWidth = 16;
-        public const int GridHeight = 16;
-
         // Screen size
-        public const int ScreenWidth = GridWidth * Grid;
-        public const int ScreenHeight = GridHeight * Grid;
+        private const int ScreenGridWidth = 16;
+        private const int ScreenGridHeight = 16;
+        public const int ScreenWidth = ScreenGridWidth * Grid;
+        public const int ScreenHeight = ScreenGridHeight * Grid;
+
+        // Scene size
+        private const int SceneGridWidth = 32;
+        private const int SceneGridHeight = 32;
+        public const int SceneWidth = SceneGridWidth * Grid;
+        public const int SceneHeight = SceneGridHeight * Grid;
 
         private static Texture2D blankTexture;
 
