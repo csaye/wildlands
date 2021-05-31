@@ -1,50 +1,66 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Wildlands.Objects;
 
 namespace Wildlands
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        public GraphicsDeviceManager Graphics { get; private set; }
+        public SpriteBatch SpriteBatch { get; private set; }
+
+        public ObjectManager ObjectManager { get; private set; }
+        public Player Player { get; private set; }
+
+        public KeyboardState KeyboardState { get; private set; }
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            // Initialize objects
+            ObjectManager = new ObjectManager();
+            Player = new Player(0, 0, Drawing.Grid, Drawing.Grid);
+            ObjectManager.AddObject(Player);
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // Initialize graphics
+            Drawing.InitializeGraphics(this);
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            // Get time delta
+            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // TODO: Add your update logic here
+            // Get and process keyboard state
+            KeyboardState = Keyboard.GetState();
+            if (KeyboardState.IsKeyDown(Keys.Escape)) Exit();
+
+            ObjectManager.Update(this, delta); // Update objects
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            SpriteBatch.Begin(); // Begin sprite batch
+            ObjectManager.Draw(this); // Draw obejcts
+            SpriteBatch.End(); // End sprite batch
 
             base.Draw(gameTime);
         }

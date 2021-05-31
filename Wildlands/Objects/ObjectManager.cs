@@ -4,7 +4,7 @@ namespace Wildlands.Objects
 {
     public class ObjectManager
     {
-        private List<GameObject> gameObjects;
+        private List<GameObject> gameObjects = new List<GameObject>();
 
         public ObjectManager() { }
 
