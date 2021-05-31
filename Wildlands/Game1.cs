@@ -15,6 +15,8 @@ namespace Wildlands
 
         public KeyboardState KeyboardState { get; private set; }
 
+        private const int Grid = Drawing.Grid;
+
         public Game1()
         {
             Graphics = new GraphicsDeviceManager(this);
@@ -23,8 +25,9 @@ namespace Wildlands
 
             // Initialize objects
             ObjectManager = new ObjectManager();
-            Player = new Player(0, 0, Drawing.Grid, Drawing.Grid);
+            Player = new Player(0, 0, Grid, Grid);
             ObjectManager.AddObject(Player);
+            ObjectManager.AddObject(new Rock(Grid * 4, Grid * 4, Grid, Grid));
         }
 
         protected override void Initialize()
