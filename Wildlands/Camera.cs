@@ -8,42 +8,51 @@ namespace Wildlands
         public Matrix Transform { get; private set; }
         public Vector2 Position { get; private set; }
 
-        // Screen midpoints
-        private const int MidWidth = Drawing.ScreenWidth / 2;
-        private const int MidHeight = Drawing.ScreenHeight / 2;
-
-        private readonly Matrix Offset = Matrix.CreateTranslation(MidWidth, MidHeight, 0);
-
-        // Scene endpoints
-        private const int MaxWidth = Drawing.SceneWidth - MidWidth;
-        private const int MaxHeight = Drawing.SceneHeight - MidHeight;
-
         public Camera() { }
 
         public void Update(Game1 game)
         {
+            // Get screen midpoints
+            int midWidth = Drawing.ScreenWidth / 2;
+            int midHeight = Drawing.ScreenHeight / 2;
+
+            // Get scene endpoints
+            int maxWidth = Drawing.SceneWidth - midWidth;
+            int maxHeight = Drawing.SceneHeight - midHeight;
+
             // Get player position and size
             Vector2 playerPosition = game.Player.Position;
             Vector2 playerSize = game.Player.Size;
 
-            // Get camera position
-            int cameraX = (int)(playerPosition.X + (playerSize.X / 2));
-            int cameraY = (int)(playerPosition.Y + (playerSize.Y / 2));
+            // Get camera target x
+            int cameraX;
+            if (midWidth < maxWidth)
+            {
+                // Set to player position clamped within scene bounds
+                int playerX = (int)(playerPosition.X + (playerSize.X / 2));
+                cameraX = Math.Clamp(playerX, midWidth, maxWidth);
+            }
+            // If camera view exceeds scene, set to center
+            else cameraX = Drawing.SceneWidth / 2;
 
-            // Clamp camera position within scene bounds
-            cameraX = Math.Clamp(cameraX, MidWidth, MaxWidth);
-            cameraY = Math.Clamp(cameraY, MidHeight, MaxHeight);
+            // Get camera target y
+            int cameraY;
+            if (midHeight < maxHeight)
+            {
+                // Set to player position clamped within scene bounds
+                int playerY = (int)(playerPosition.Y + (playerSize.Y / 2));
+                cameraY = Math.Clamp(playerY, midHeight, maxHeight);
+            }
+            // If camera view exceeds scene, set to center
+            else cameraY = Drawing.SceneHeight / 2;
 
             // Set camera position
-            Position = new Vector2(cameraX - MidWidth, cameraY - MidHeight);
-
-            // Flip camera x and y
-            cameraX *= -1;
-            cameraY *= -1;
+            Position = new Vector2(cameraX - midWidth, cameraY - midHeight);
 
             // Update transform matrix
-            Matrix target = Matrix.CreateTranslation(cameraX, cameraY, 0);
-            Transform = target * Offset;
+            Matrix target = Matrix.CreateTranslation(-cameraX, -cameraY, 0);
+            Matrix offset = Matrix.CreateTranslation(midWidth, midHeight, 0);
+            Transform = target * offset;
         }
     }
 }

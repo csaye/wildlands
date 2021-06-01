@@ -13,17 +13,14 @@ namespace Wildlands.Objects
 
         public override void Update(Game1 game, float delta)
         {
-            // Get keyboard state
-            KeyboardState state = game.KeyboardState;
-
             // Reset movement direction
             movementDirection = Vector2.Zero;
 
             // Get movement direction
-            if (state.IsKeyDown(Keys.W)) movementDirection.Y -= 1; // Up
-            if (state.IsKeyDown(Keys.S)) movementDirection.Y += 1; // Down
-            if (state.IsKeyDown(Keys.D)) movementDirection.X += 1; // Right
-            if (state.IsKeyDown(Keys.A)) movementDirection.X -= 1; // Left
+            if (game.IsKeyDown(Keys.W)) movementDirection.Y -= 1; // Up
+            if (game.IsKeyDown(Keys.S)) movementDirection.Y += 1; // Down
+            if (game.IsKeyDown(Keys.D)) movementDirection.X += 1; // Right
+            if (game.IsKeyDown(Keys.A)) movementDirection.X -= 1; // Left
             if (movementDirection.Length() > 1) movementDirection.Normalize(); // Normalize
 
             // Move player
