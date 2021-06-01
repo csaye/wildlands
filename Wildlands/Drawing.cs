@@ -11,10 +11,12 @@ namespace Wildlands
         public const int Pixel = Grid / PixelsPerGrid;
 
         // Screen size
-        private const int ScreenGridWidth = 16;
-        private const int ScreenGridHeight = 16;
-        public const int ScreenWidth = ScreenGridWidth * Grid;
-        public const int ScreenHeight = ScreenGridHeight * Grid;
+        private const int DefaultScreenWidth = 1280;
+        private const int DefaultScreenHeight = 720;
+        public static int ScreenWidth { get; private set; } = DefaultScreenWidth;
+        public static int ScreenHeight { get; private set; } = DefaultScreenHeight;
+        public static void SetScreenWidth(int newWidth) => ScreenWidth = newWidth;
+        public static void SetScreenHeight(int newHeight) => ScreenHeight = newHeight;
 
         // Scene size
         private const int SceneGridWidth = 32;
@@ -26,9 +28,9 @@ namespace Wildlands
 
         public static void InitializeGraphics(Game1 game)
         {
-            // Set screen size
-            game.Graphics.PreferredBackBufferHeight = ScreenHeight;
-            game.Graphics.PreferredBackBufferWidth = ScreenWidth;
+            // Initialize screen size
+            game.Graphics.PreferredBackBufferWidth = DefaultScreenWidth;
+            game.Graphics.PreferredBackBufferHeight = DefaultScreenHeight;
             game.Graphics.ApplyChanges();
 
             // Initialize blank texture
