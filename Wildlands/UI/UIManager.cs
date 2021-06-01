@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Wildlands.UI
 {
@@ -8,9 +9,18 @@ namespace Wildlands.UI
 
         public bool MenuActive { get; private set; }
 
+        private List<UIElement> uiElements = new List<UIElement>();
+
         public UIManager()
         {
             Inventory = new Inventory(UIAnchorX.Center, UIAnchorY.Bottom, 0, -Drawing.Grid, Drawing.Grid * 10, Drawing.Grid);
+            uiElements.Add(Inventory);
+        }
+
+        public void UpdatePositioning()
+        {
+            // Update all UI element positions
+            foreach (UIElement elem in uiElements) elem.UpdatePosition();
         }
 
         public void Update(Game1 game)
@@ -24,7 +34,8 @@ namespace Wildlands.UI
             // If menu active
             if (MenuActive)
             {
-                Inventory.Draw(game); // Draw inventory
+                // Draw all UI elements
+                foreach (UIElement elem in uiElements) elem.Draw(game);
             }
         }
     }
