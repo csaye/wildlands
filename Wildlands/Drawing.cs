@@ -19,8 +19,8 @@ namespace Wildlands
         public static void SetScreenHeight(int newHeight) => ScreenHeight = newHeight;
 
         // Scene size
-        private const int SceneGridWidth = 32;
-        private const int SceneGridHeight = 32;
+        public const int SceneGridWidth = 64;
+        public const int SceneGridHeight = 64;
         public const int SceneWidth = SceneGridWidth * Grid;
         public const int SceneHeight = SceneGridHeight * Grid;
 

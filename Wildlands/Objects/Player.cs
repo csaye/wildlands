@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Wildlands.Objects
 {
@@ -23,8 +24,12 @@ namespace Wildlands.Objects
             if (game.IsKeyDown(Keys.A)) movementDirection.X -= 1; // Left
             if (movementDirection.Length() > 1) movementDirection.Normalize(); // Normalize
 
-            // Move player
+            // Get new position and clamp within scene bounds
             Vector2 newPosition = position + movementDirection * delta * Speed;
+            newPosition.X = Math.Clamp(newPosition.X, 0, Drawing.SceneWidth - size.X);
+            newPosition.Y = Math.Clamp(newPosition.Y, 0, Drawing.SceneHeight - size.Y);
+
+            // Move player
             position = game.ObjectManager.NearestEmptyPosition(this, newPosition);
         }
 

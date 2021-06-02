@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Wildlands.Objects;
+using Wildlands.Tiles;
 using Wildlands.UI;
 
 namespace Wildlands
@@ -13,6 +14,7 @@ namespace Wildlands
         public SpriteBatch SpriteBatch { get; private set; }
 
         public Camera Camera { get; private set; }
+        public TileManager TileManager { get; private set; }
         public UIManager UIManager { get; private set; }
         public ObjectManager ObjectManager { get; private set; }
         public Player Player { get; private set; }
@@ -34,6 +36,7 @@ namespace Wildlands
 
             // Initialize classes
             Camera = new Camera();
+            TileManager = new TileManager();
             UIManager = new UIManager();
             ObjectManager = new ObjectManager();
             Player = new Player(0, 0, Grid, Grid);
@@ -77,7 +80,7 @@ namespace Wildlands
             GraphicsDevice.Clear(Color.Black);
 
             SpriteBatch.Begin(transformMatrix: Camera.Transform); // Begin world sprite batch
-            Drawing.DrawRect(this, new Rectangle(0, 0, Drawing.SceneWidth, Drawing.SceneHeight), Color.Green); // Draw scene ground
+            TileManager.Draw(this); // Draw tiles
             ObjectManager.Draw(this); // Draw objects
             SpriteBatch.End(); // End world sprite batch
 
