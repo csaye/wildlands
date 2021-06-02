@@ -30,5 +30,6 @@
   <ItemGroup>
     <Folder Include="Objects\" />
     <Folder Include="UI\" />
+    <Folder Include="Tiles\" />
   </ItemGroup>
 </Project>
