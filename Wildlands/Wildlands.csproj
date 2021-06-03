@@ -12,6 +12,9 @@
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
+    <None Remove="Serialization\" />
+    <None Remove="SaveLoad\SaveData\" />
+    <None Remove="SaveLoad\Serialization\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -32,5 +35,8 @@
     <Folder Include="UI\" />
     <Folder Include="Tiles\" />
     <Folder Include="Content\Fonts\" />
+    <Folder Include="SaveLoad\" />
+    <Folder Include="SaveLoad\Data\" />
+    <Folder Include="SaveLoad\Serialization\" />
   </ItemGroup>
 </Project>
