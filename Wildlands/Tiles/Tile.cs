@@ -2,7 +2,9 @@
 {
     public enum Tile : byte
     {
-        Empty,
-        Grass
+        None,
+        Grass,
+        Water,
+        Sand
     }
 }

@@ -5,7 +5,7 @@ namespace Wildlands.Tiles
 {
     public class TileManager
     {
-        private Tile[,] tiles;
+        private readonly Tile[,] tiles;
 
         private const int TilesWidth = Drawing.SceneGridWidth;
         private const int TilesHeight = Drawing.SceneGridHeight;
@@ -40,21 +40,20 @@ namespace Wildlands.Tiles
             // For each viewable position
             for (int x = minX; x <= maxX; x++)
             {
-                for (int y = minY; y <= maxY + 1; y++)
+                for (int y = minY; y <= maxY; y++)
                 {
                     // Skip if position out of range
                     if (x < 0 || x > TilesWidth - 1 || y < 0 || y > TilesHeight - 1) continue;
 
                     // Get tile and rect at position
                     Tile tile = tiles[x, y];
-                    Rectangle rect = new Rectangle(x * Grid, y * Grid, Grid, Grid);
+                    Rectangle tileRect = new Rectangle(x * Grid, y * Grid, Grid, Grid);
+
+                    // Skip tile if empty
+                    if (tile == Tile.None) continue;
 
                     // Draw tile
-                    switch (tile)
-                    {
-                        case Tile.Empty: break;
-                        case Tile.Grass: Drawing.DrawRect(game, rect, Color.Green); break;
-                    }
+                    Drawing.DrawSprite(game, Drawing.TilesTileset, tileRect, (int)tile, Layers.Tiles);
                 }
             }
         }

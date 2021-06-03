@@ -24,6 +24,10 @@ namespace Wildlands
         public const int SceneWidth = SceneGridWidth * Grid;
         public const int SceneHeight = SceneGridHeight * Grid;
 
+        // Content
+        public static Texture2D TilesTileset { get; private set; }
+        public static Texture2D ItemsTileset { get; private set; }
+
         private static Texture2D blankTexture;
 
         public static void InitializeGraphics(Game1 game)
@@ -36,6 +40,13 @@ namespace Wildlands
             // Initialize blank texture
             blankTexture = new Texture2D(game.GraphicsDevice, 1, 1);
             blankTexture.SetData(new Color[] { Color.White });
+        }
+
+        public static void LoadContent(Game1 game)
+        {
+            // Load tilesets
+            TilesTileset = game.Content.Load<Texture2D>("Tilesets/Tiles");
+            ItemsTileset = game.Content.Load<Texture2D>("Tilesets/Items");
         }
 
         // Draws given rect of given color to sprite batch
