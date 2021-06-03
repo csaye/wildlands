@@ -14,6 +14,16 @@ namespace Wildlands.Objects
 
         public override void Update(Game1 game, float delta)
         {
+            Move(game, delta);
+        }
+
+        public override void Draw(Game1 game)
+        {
+            Drawing.DrawRect(game, Bounds, Color.Blue);
+        }
+
+        private void Move(Game1 game, float delta)
+        {
             // Reset movement direction
             movementDirection = Vector2.Zero;
 
@@ -31,11 +41,6 @@ namespace Wildlands.Objects
 
             // Move player
             position = game.ObjectManager.NearestEmptyPosition(this, newPosition);
-        }
-
-        public override void Draw(Game1 game)
-        {
-            Drawing.DrawRect(game, Bounds, Color.Blue);
         }
     }
 }

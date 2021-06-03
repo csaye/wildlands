@@ -10,19 +10,19 @@ namespace Wildlands
 {
     public class Game1 : Game
     {
+        private const int Grid = Drawing.Grid;
+
         public GraphicsDeviceManager Graphics { get; private set; }
         public SpriteBatch SpriteBatch { get; private set; }
 
-        public Camera Camera { get; private set; }
-        public TileManager TileManager { get; private set; }
-        public UIManager UIManager { get; private set; }
-        public ObjectManager ObjectManager { get; private set; }
-        public Player Player { get; private set; }
+        public Camera Camera { get; private set; } = new Camera();
+        public TileManager TileManager { get; private set; } = new TileManager();
+        public UIManager UIManager { get; private set; } = new UIManager();
+        public ObjectManager ObjectManager { get; private set; } = new ObjectManager();
+        public Player Player { get; private set; } = new Player(0, 0, Grid, Grid);
 
         private KeyboardState keyboardState;
         private KeyboardState lastKeyboardState;
-
-        private const int Grid = Drawing.Grid;
 
         public Game1()
         {
@@ -34,12 +34,7 @@ namespace Wildlands
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += OnScreenSizeChange;
 
-            // Initialize classes
-            Camera = new Camera();
-            TileManager = new TileManager();
-            UIManager = new UIManager();
-            ObjectManager = new ObjectManager();
-            Player = new Player(0, 0, Grid, Grid);
+            // Initialize objects
             ObjectManager.AddObject(Player);
             ObjectManager.AddObject(new Rock(Grid * 4, Grid * 4, Grid, Grid));
         }

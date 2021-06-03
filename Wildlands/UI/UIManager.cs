@@ -5,37 +5,46 @@ namespace Wildlands.UI
 {
     public class UIManager
     {
-        public Inventory Inventory { get; private set; }
+        public Inventory Inventory { get; private set; } = new Inventory();
+        public EnergyBar EnergyBar { get; private set; } = new EnergyBar();
 
-        public bool MenuActive { get; private set; }
+        public bool MenuOpen { get; private set; }
 
-        private List<UIElement> uiElements = new List<UIElement>();
+        private readonly List<UIElement> baseUI = new List<UIElement>();
+        private readonly List<UIElement> menuUI = new List<UIElement>();
 
         public UIManager()
         {
-            Inventory = new Inventory();
-            uiElements.Add(Inventory);
+            // Base UI
+            baseUI.Add(EnergyBar);
+
+            // Menu UI
+            menuUI.Add(Inventory);
         }
 
         public void UpdatePositioning()
         {
             // Update all UI element positions
-            foreach (UIElement elem in uiElements) elem.UpdatePosition();
+            foreach (UIElement elem in baseUI) elem.UpdatePosition();
+            foreach (UIElement elem in menuUI) elem.UpdatePosition();
         }
 
         public void Update(Game1 game)
         {
-            // Toggle menu active
-            if (game.IsKeyPressed(Keys.E)) MenuActive = !MenuActive;
+            // Toggle menu open
+            if (game.IsKeyPressed(Keys.E)) MenuOpen = !MenuOpen;
         }
 
         public void Draw(Game1 game)
         {
-            // If menu active
-            if (MenuActive)
+            // Draw all base UI elements
+            foreach (UIElement elem in baseUI) elem.Draw(game);
+
+            // If menu open
+            if (MenuOpen)
             {
-                // Draw all UI elements
-                foreach (UIElement elem in uiElements) elem.Draw(game);
+                // Draw all menu UI elements
+                foreach (UIElement elem in menuUI) elem.Draw(game);
             }
         }
     }
