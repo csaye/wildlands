@@ -20,9 +20,9 @@ namespace Wildlands.UI
     {
         private UIAnchorX anchorX;
         private UIAnchorY anchorY;
-        private Vector2 position;
         private Vector2 offset;
         private Vector2 size;
+        protected Vector2 position;
 
         public Rectangle Bounds => new Rectangle(position.ToPoint(), size.ToPoint());
 

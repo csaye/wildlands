@@ -13,7 +13,7 @@ namespace Wildlands.UI
 
         public UIManager()
         {
-            Inventory = new Inventory(UIAnchorX.Center, UIAnchorY.Bottom, 0, -Drawing.Grid, Drawing.Grid * 10, Drawing.Grid);
+            Inventory = new Inventory();
             uiElements.Add(Inventory);
         }
 

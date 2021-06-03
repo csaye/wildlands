@@ -54,6 +54,9 @@ namespace Wildlands
 
         protected override void LoadContent()
         {
+            // Load content
+            Drawing.LoadContent(this);
+
             SpriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
@@ -79,12 +82,12 @@ namespace Wildlands
         {
             GraphicsDevice.Clear(Color.Black);
 
-            SpriteBatch.Begin(transformMatrix: Camera.Transform); // Begin world sprite batch
+            SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: Camera.Transform); // Begin world sprite batch
             TileManager.Draw(this); // Draw tiles
             ObjectManager.Draw(this); // Draw objects
             SpriteBatch.End(); // End world sprite batch
 
-            SpriteBatch.Begin(); // Begin UI sprite batch
+            SpriteBatch.Begin(samplerState: SamplerState.PointClamp); // Begin UI sprite batch
             UIManager.Draw(this); // Draw UI
             SpriteBatch.End(); // End UI sprite batch
 
