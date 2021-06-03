@@ -27,6 +27,7 @@ namespace Wildlands
         // Content
         public static Texture2D TilesTileset { get; private set; }
         public static Texture2D ItemsTileset { get; private set; }
+        private static SpriteFont arialFont;
 
         private static Texture2D blankTexture;
 
@@ -47,6 +48,9 @@ namespace Wildlands
             // Load tilesets
             TilesTileset = game.Content.Load<Texture2D>("Tilesets/Tiles");
             ItemsTileset = game.Content.Load<Texture2D>("Tilesets/Items");
+
+            // Load spritefonts
+            arialFont = game.Content.Load<SpriteFont>("Fonts/Arial");
         }
 
         // Draws given rect of given color to sprite batch
@@ -70,6 +74,12 @@ namespace Wildlands
 
             // Draw sprite to sprite batch
             game.SpriteBatch.Draw(texture, rect, sourceRect, Color.White, 0, Vector2.Zero, SpriteEffects.None, layer);
+        }
+
+        // Draws given text to sprite batch
+        public static void DrawText(Game1 game, string text, Vector2 position, Color color)
+        {
+            game.SpriteBatch.DrawString(arialFont, text, position, color);
         }
     }
 }

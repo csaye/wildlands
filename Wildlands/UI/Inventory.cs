@@ -38,6 +38,7 @@ namespace Wildlands.UI
 
                     // Draw item to rect
                     Drawing.DrawSprite(game, Drawing.ItemsTileset, slotRect, (int)itemCount.Item, Layers.UI);
+                    if (itemCount.Count > 1) Drawing.DrawText(game, itemCount.Count.ToString(), slotPosition, Color.Black);
                 }
             }
         }
@@ -46,6 +47,9 @@ namespace Wildlands.UI
         public bool AddItem(Item item, int count) => AddItem(new ItemCount(item, count));
         public bool AddItem(ItemCount itemCount)
         {
+            // If empty item, return
+            if (itemCount.IsEmpty) return false;
+
             // Check for stackable slot
             for (int i = 0; i < SlotCount; i++)
             {

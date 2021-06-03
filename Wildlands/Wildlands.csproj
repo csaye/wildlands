@@ -31,5 +31,6 @@
     <Folder Include="Objects\" />
     <Folder Include="UI\" />
     <Folder Include="Tiles\" />
+    <Folder Include="Content\Fonts\" />
   </ItemGroup>
 </Project>
