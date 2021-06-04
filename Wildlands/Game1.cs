@@ -41,6 +41,9 @@ namespace Wildlands
             // Initialize objects
             ObjectManager.AddObject(Player);
             ObjectManager.AddObject(new Rock(Grid * 4, Grid * 4, Grid, Grid));
+
+            // Load save data
+            SaveLoadManager.Load(this);
         }
 
         protected override void Initialize()
@@ -69,7 +72,7 @@ namespace Wildlands
             keyboardState = Keyboard.GetState();
             if (IsKeyDown(Keys.Escape)) Exit();
             if (IsKeyPressed(Keys.F)) Graphics.ToggleFullScreen();
-            if (IsKeyPressed(Keys.X)) SaveLoadManager.Save();
+            if (IsKeyPressed(Keys.X)) SaveLoadManager.Save(this);
 
             // Get mouse state
             lastMouseState = mouseState;
@@ -102,6 +105,20 @@ namespace Wildlands
             SpriteBatch.End(); // End UI sprite batch
 
             base.Draw(gameTime);
+        }
+
+        public void OnSave()
+        {
+            TileManager.OnSave(); // Save tiles
+            ObjectManager.OnSave(); // Save objects
+            UIManager.OnSave(); // Save UI
+        }
+
+        public void OnLoad()
+        {
+            TileManager.OnLoad(); // Load tiles
+            ObjectManager.OnLoad(); // Load objects
+            UIManager.OnLoad(); // Load UI
         }
 
         // Returns whether given key is down

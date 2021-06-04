@@ -19,5 +19,8 @@
         public SaveData() { } 
 
         public string saveName = "default";
+
+        public PlayerData playerData = new PlayerData();
+        public InventoryData inventoryData = new InventoryData();
     }
 }

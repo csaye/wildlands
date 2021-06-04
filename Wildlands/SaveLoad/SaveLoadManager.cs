@@ -3,15 +3,23 @@
     public static class SaveLoadManager
     {
         // Saves current game data to file
-        public static void Save()
+        public static void Save(Game1 game)
         {
+            // Retrieve save data
+            game.OnSave();
+
+            // Serialize save data
             SerializationManager.Save("./Save", SaveData.Current);
         }
 
         // Loads game data from file
-        public static void Load()
+        public static void Load(Game1 game)
         {
+            // Retrieve save data
             SerializationManager.Load("./Save");
+
+            // Load save data
+            game.OnLoad();
         }
     }
 }
