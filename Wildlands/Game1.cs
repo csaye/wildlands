@@ -69,6 +69,7 @@ namespace Wildlands
             keyboardState = Keyboard.GetState();
             if (IsKeyDown(Keys.Escape)) Exit();
             if (IsKeyPressed(Keys.F)) Graphics.ToggleFullScreen();
+            if (IsKeyPressed(Keys.X)) SaveLoadManager.Save();
 
             // Get mouse state
             lastMouseState = mouseState;
