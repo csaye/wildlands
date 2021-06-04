@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Wildlands.Objects;
+using Wildlands.SaveLoad;
 using Wildlands.Tiles;
 using Wildlands.UI;
 
@@ -23,6 +24,9 @@ namespace Wildlands
 
         private KeyboardState keyboardState;
         private KeyboardState lastKeyboardState;
+
+        private MouseState mouseState;
+        private MouseState lastMouseState;
 
         public Game1()
         {
@@ -66,8 +70,18 @@ namespace Wildlands
             if (IsKeyDown(Keys.Escape)) Exit();
             if (IsKeyPressed(Keys.F)) Graphics.ToggleFullScreen();
 
-            ObjectManager.Update(this, delta); // Update objects
-            Camera.Update(this); // Update camera
+            // Get mouse state
+            lastMouseState = mouseState;
+            mouseState = Mouse.GetState();
+            if (UIManager.MenuOpen) UIManager.ProcessClick(this, mouseState.Position);
+            else ObjectManager.ProcessClick(this, mouseState.Position);
+
+            // If not paused
+            if (!UIManager.MenuOpen)
+            {
+                ObjectManager.Update(this, delta); // Update objects
+                Camera.Update(this); // Update camera
+            }
             UIManager.Update(this); // Update UI
 
             base.Update(gameTime);
@@ -90,17 +104,16 @@ namespace Wildlands
         }
 
         // Returns whether given key is down
-        public bool IsKeyDown(Keys key)
-        {
-            return keyboardState.IsKeyDown(key);
-        }
-
+        public bool IsKeyDown(Keys key) => keyboardState.IsKeyDown(key);
         // Returns whether given key has been pressed in the last frame
-        public bool IsKeyPressed(Keys key)
-        {
-            return keyboardState.IsKeyDown(key) && !lastKeyboardState.IsKeyDown(key);
-        }
+        public bool IsKeyPressed(Keys key) => keyboardState.IsKeyDown(key) && lastKeyboardState.IsKeyUp(key);
 
+        // Returns whether left click has been pressed in the last frame
+        public bool IsLeftClick() => mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released;
+        // Returns whether right click has been pressed in the last frame
+        public bool IsRightClick() => mouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Released;
+
+        // Called when user resizes window
         private void OnScreenSizeChange(object sender, EventArgs e)
         {
             // Get new window bounds

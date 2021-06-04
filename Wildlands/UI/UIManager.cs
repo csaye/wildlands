@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace Wildlands.UI
@@ -22,13 +23,6 @@ namespace Wildlands.UI
             menuUI.Add(Inventory);
         }
 
-        public void UpdatePositioning()
-        {
-            // Update all UI element positions
-            foreach (UIElement elem in baseUI) elem.UpdatePosition();
-            foreach (UIElement elem in menuUI) elem.UpdatePosition();
-        }
-
         public void Update(Game1 game)
         {
             // Toggle menu open
@@ -46,6 +40,18 @@ namespace Wildlands.UI
                 // Draw all menu UI elements
                 foreach (UIElement elem in menuUI) elem.Draw(game);
             }
+        }
+
+        public void ProcessClick(Game1 game, Point mousePosition)
+        {
+
+        }
+
+        public void UpdatePositioning()
+        {
+            // Update all UI element positions
+            foreach (UIElement elem in baseUI) elem.UpdatePosition();
+            foreach (UIElement elem in menuUI) elem.UpdatePosition();
         }
     }
 }

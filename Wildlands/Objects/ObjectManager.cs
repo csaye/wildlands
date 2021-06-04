@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace Wildlands.Objects
 {
     public class ObjectManager
     {
-        private List<GameObject> gameObjects = new List<GameObject>();
+        private readonly List<GameObject> gameObjects = new List<GameObject>();
 
         public ObjectManager() { }
 
@@ -22,6 +23,11 @@ namespace Wildlands.Objects
         {
             // Draw each object
             foreach (GameObject obj in gameObjects) obj.Draw(game);
+        }
+
+        public void ProcessClick(Game1 game, Point mousePosition)
+        {
+
         }
 
         // Processes the intersection between two bounds and returns a corrected new bounds position
