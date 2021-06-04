@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using Wildlands.SaveLoad;
 
 namespace Wildlands.Tiles
 {
@@ -15,15 +16,6 @@ namespace Wildlands.Tiles
         public TileManager()
         {
             tiles = new Tile[TilesWidth, TilesHeight];
-
-            // Initialize tiles
-            for (int x = 0; x < TilesWidth; x++)
-            {
-                for (int y = 0; y < TilesHeight; y++)
-                {
-                    tiles[x, y] = Tile.Grass;
-                }
-            }
         }
 
         public void Draw(Game1 game)
@@ -54,6 +46,36 @@ namespace Wildlands.Tiles
 
                     // Draw tile
                     Drawing.DrawSprite(game, Drawing.TilesTileset, tileRect, (int)tile, Layers.Tiles);
+                }
+            }
+        }
+
+        public void OnSave()
+        {
+            // Save tile data to files
+            Tile[] tiles1D = new Tile[TilesWidth * TilesHeight];
+            for (int x = 0; x < TilesWidth; x++)
+            {
+                for (int y = 0; y < TilesHeight; y++)
+                {
+                    int i = x + (y * TilesWidth);
+                    tiles1D[i] = tiles[x, y];
+                }
+            }
+
+            SaveData.Current.tileData.tiles = tiles1D;
+        }
+
+        public void OnLoad()
+        {
+            // Load tile data from file
+            Tile[] tiles1D = SaveData.Current.tileData.tiles;
+            for (int x = 0; x < TilesWidth; x++)
+            {
+                for (int y = 0; y < TilesHeight; y++)
+                {
+                    int i = x + (y * TilesWidth);
+                    tiles[x, y] = tiles1D[i];
                 }
             }
         }

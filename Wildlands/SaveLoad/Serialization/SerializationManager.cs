@@ -14,7 +14,7 @@ namespace Wildlands.SaveLoad
         {
             // Verify folder structure and get file path
             VerifyFolderStructure();
-            string path = Path.Combine(DataPath, ProjectName, "Saves", fileName);
+            string path = Path.Combine(DataPath, ProjectName, "Saves", $"{fileName}.xml");
 
             // Write save data to file
             TextWriter writer = new StreamWriter(path);
@@ -26,7 +26,7 @@ namespace Wildlands.SaveLoad
         public static void Load(string fileName)
         {
             // Get path and return if no file exists
-            string path = Path.Combine(DataPath, ProjectName, "Saves", fileName);
+            string path = Path.Combine(DataPath, ProjectName, "Saves", $"fileName.xml");
             if (!File.Exists(path)) return;
 
             // Read save data from file

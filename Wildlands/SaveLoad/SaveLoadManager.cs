@@ -9,14 +9,14 @@
             game.OnSave();
 
             // Serialize save data
-            SerializationManager.Save("./Save", SaveData.Current);
+            SerializationManager.Save("Save", SaveData.Current);
         }
 
         // Loads game data from file
         public static void Load(Game1 game)
         {
             // Retrieve save data
-            SerializationManager.Load("./Save");
+            SerializationManager.Load("Save");
 
             // Load save data
             game.OnLoad();

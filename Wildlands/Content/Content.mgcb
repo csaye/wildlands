@@ -20,6 +20,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Arial.spritefont
 
+#begin TileData.json
+/copy:TileData.json
+
 #begin Tilesets/Items.png
 /importer:TextureImporter
 /processor:TextureProcessor
