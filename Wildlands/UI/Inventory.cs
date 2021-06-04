@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Wildlands.SaveLoad;
 
 namespace Wildlands.UI
 {
@@ -7,10 +8,10 @@ namespace Wildlands.UI
         // Slot data
         private const int SlotCols = 10;
         private const int SlotRows = 3;
-        private const int SlotCount = SlotCols * SlotRows;
+        public const int SlotCount = SlotCols * SlotRows;
 
         // Item data
-        private readonly ItemCount[] slots = new ItemCount[SlotCount];
+        private ItemCount[] slots = new ItemCount[SlotCount];
 
         public Inventory() : base(UIAnchorX.Center, UIAnchorY.Center, 0, 0, Drawing.Grid * SlotCols, Drawing.Grid * SlotRows) { }
 
@@ -41,6 +42,18 @@ namespace Wildlands.UI
                     if (itemCount.Count > 1) Drawing.DrawText(game, itemCount.Count.ToString(), slotPosition, Color.Black);
                 }
             }
+        }
+
+        public override void OnSave()
+        {
+            // Save inventory slots
+            SaveData.Current.inventoryData.slots = slots;
+        }
+
+        public override void OnLoad()
+        {
+            // Load inventory slots
+            slots = SaveData.Current.inventoryData.slots;
         }
 
         // Attempts to add item to inventory and returns whether successful

@@ -39,6 +39,9 @@ namespace Wildlands.UI
 
         public abstract void Draw(Game1 game);
 
+        public virtual void OnSave() { }
+        public virtual void OnLoad() { }
+
         // Updates element position based on screen size
         public void UpdatePosition()
         {

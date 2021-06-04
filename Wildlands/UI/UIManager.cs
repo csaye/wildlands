@@ -42,10 +42,21 @@ namespace Wildlands.UI
             }
         }
 
-        public void ProcessClick(Game1 game, Point mousePosition)
+        public void OnSave()
         {
-
+            // Save all UI elements
+            foreach (UIElement elem in baseUI) elem.OnSave();
+            foreach (UIElement elem in menuUI) elem.OnSave();
         }
+
+        public void OnLoad()
+        {
+            // Load all UI elements
+            foreach (UIElement elem in baseUI) elem.OnLoad();
+            foreach (UIElement elem in menuUI) elem.OnLoad();
+        }
+
+        public void ProcessClick(Game1 game, Point mousePosition) { }
 
         public void UpdatePositioning()
         {
