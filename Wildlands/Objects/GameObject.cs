@@ -18,7 +18,10 @@ namespace Wildlands.Objects
             size = new Vector2(width, height);
         }
 
-        public abstract void Update(Game1 game, float delta);
+        public virtual void Update(Game1 game, float delta) { }
         public abstract void Draw(Game1 game);
+
+        public virtual void OnSave() { }
+        public virtual void OnLoad() { }
     }
 }

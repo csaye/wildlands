@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
@@ -25,10 +24,19 @@ namespace Wildlands.Objects
             foreach (GameObject obj in gameObjects) obj.Draw(game);
         }
 
-        public void ProcessClick(Game1 game, Point mousePosition)
+        public void OnSave()
         {
-
+            // Save all objects
+            foreach (GameObject obj in gameObjects) obj.OnSave();
         }
+
+        public void OnLoad()
+        {
+            // Load all objects
+            foreach (GameObject obj in gameObjects) obj.OnLoad();
+        }
+
+        public void ProcessClick(Game1 game, Point mousePosition) { }
 
         // Processes the intersection between two bounds and returns a corrected new bounds position
         private Vector2 ProcessIntersection(Rectangle newBounds, Rectangle objBounds, Vector2 newPosition)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using Wildlands.SaveLoad;
 
 namespace Wildlands.Objects
 {
@@ -20,6 +21,21 @@ namespace Wildlands.Objects
         public override void Draw(Game1 game)
         {
             Drawing.DrawRect(game, Bounds, Color.Blue);
+        }
+
+        public override void OnSave()
+        {
+            // Save player position
+            SaveData.Current.playerData.xPos = position.X;
+            SaveData.Current.playerData.yPos = position.Y;
+        }
+
+        public override void OnLoad()
+        {
+            // Load player position
+            float xPos = SaveData.Current.playerData.xPos;
+            float yPos = SaveData.Current.playerData.yPos;
+            position = new Vector2(xPos, yPos);
         }
 
         private void Move(Game1 game, float delta)
