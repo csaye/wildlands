@@ -71,7 +71,10 @@ namespace Wildlands.Objects
         {
             // Save all objects
             foreach (GameObject obj in dynamicObjects) obj.OnSave();
-            foreach (GameObject obj in staticObjects) obj.OnSave();
+            foreach (GameObject obj in staticObjects)
+            {
+                if (obj != null) obj.OnSave();
+            }
         }
 
         public void OnLoad()

@@ -19,10 +19,10 @@ namespace Wildlands
         public static void SetScreenHeight(int newHeight) => ScreenHeight = newHeight;
 
         // Scene size
-        public const int SceneGridWidth = 64;
-        public const int SceneGridHeight = 64;
-        public const int SceneWidth = SceneGridWidth * Grid;
-        public const int SceneHeight = SceneGridHeight * Grid;
+        public const int GridWidth = 64;
+        public const int GridHeight = 64;
+        public const int SceneWidth = GridWidth * Grid;
+        public const int SceneHeight = GridHeight * Grid;
 
         // Content
         public static Texture2D TilesTileset { get; private set; }

@@ -8,14 +8,14 @@ namespace Wildlands.Tiles
     {
         private readonly Tile[,] tiles;
 
-        private const int TilesWidth = Drawing.SceneGridWidth;
-        private const int TilesHeight = Drawing.SceneGridHeight;
+        private const int GridWidth = Drawing.GridWidth;
+        private const int GridHeight = Drawing.GridHeight;
 
         private const int Grid = Drawing.Grid;
 
         public TileManager()
         {
-            tiles = new Tile[TilesWidth, TilesHeight];
+            tiles = new Tile[GridWidth, GridHeight];
         }
 
         public void Draw(Game1 game)
@@ -35,7 +35,7 @@ namespace Wildlands.Tiles
                 for (int y = minY; y <= maxY; y++)
                 {
                     // Skip if position out of range
-                    if (x < 0 || x > TilesWidth - 1 || y < 0 || y > TilesHeight - 1) continue;
+                    if (x < 0 || x > GridWidth - 1 || y < 0 || y > GridHeight - 1) continue;
 
                     // Get tile and rect at position
                     Tile tile = tiles[x, y];
@@ -52,13 +52,13 @@ namespace Wildlands.Tiles
 
         public void OnSave()
         {
-            // Save tile data to files
-            Tile[] tiles1D = new Tile[TilesWidth * TilesHeight];
-            for (int x = 0; x < TilesWidth; x++)
+            // Save tile data to file
+            Tile[] tiles1D = new Tile[GridWidth * GridHeight];
+            for (int x = 0; x < GridWidth; x++)
             {
-                for (int y = 0; y < TilesHeight; y++)
+                for (int y = 0; y < GridHeight; y++)
                 {
-                    int i = x + (y * TilesWidth);
+                    int i = x + (y * GridWidth);
                     tiles1D[i] = tiles[x, y];
                 }
             }
@@ -70,11 +70,11 @@ namespace Wildlands.Tiles
         {
             // Load tile data from file
             Tile[] tiles1D = SaveData.Current.tileData.tiles;
-            for (int x = 0; x < TilesWidth; x++)
+            for (int x = 0; x < GridWidth; x++)
             {
-                for (int y = 0; y < TilesHeight; y++)
+                for (int y = 0; y < GridHeight; y++)
                 {
-                    int i = x + (y * TilesWidth);
+                    int i = x + (y * GridWidth);
                     tiles[x, y] = tiles1D[i];
                 }
             }
