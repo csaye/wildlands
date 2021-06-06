@@ -1,4 +1,4 @@
-﻿namespace Wildlands.UI
+﻿namespace Wildlands.Items
 {
     public enum Item : byte
     {
