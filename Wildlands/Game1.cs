@@ -39,8 +39,7 @@ namespace Wildlands
             Window.ClientSizeChanged += OnScreenSizeChange;
 
             // Initialize objects
-            ObjectManager.AddObject(Player);
-            ObjectManager.AddObject(new Rock(Grid * 4, Grid * 4, Grid, Grid));
+            ObjectManager.AddDynamicObject(Player);
 
             // Load save data
             SaveLoadManager.Load(this);
