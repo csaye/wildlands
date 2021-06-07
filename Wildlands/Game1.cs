@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Wildlands.Items;
 using Wildlands.Objects;
 using Wildlands.SaveLoad;
 using Wildlands.Tiles;
@@ -17,6 +18,7 @@ namespace Wildlands
         public SpriteBatch SpriteBatch { get; private set; }
 
         public Camera Camera { get; private set; } = new Camera();
+        public Inventory Inventory { get; private set; } = new Inventory();
         public TileManager TileManager { get; private set; } = new TileManager();
         public UIManager UIManager { get; private set; } = new UIManager();
         public ObjectManager ObjectManager { get; private set; } = new ObjectManager();

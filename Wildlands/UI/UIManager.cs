@@ -6,21 +6,19 @@ namespace Wildlands.UI
 {
     public class UIManager
     {
-        public Inventory Inventory { get; private set; } = new Inventory();
+        public Slots Slots { get; private set; } = new Slots();
+        public Hotbar Hotbar { get; private set; } = new Hotbar();
         public EnergyBar EnergyBar { get; private set; } = new EnergyBar();
 
         public bool MenuOpen { get; private set; }
 
-        private readonly List<UIElement> baseUI = new List<UIElement>();
-        private readonly List<UIElement> menuUI = new List<UIElement>();
+        private readonly List<UIElement> uiElements = new List<UIElement>();
 
         public UIManager()
         {
-            // Base UI
-            baseUI.Add(EnergyBar);
-
-            // Menu UI
-            menuUI.Add(Inventory);
+            uiElements.Add(Slots);
+            uiElements.Add(Hotbar);
+            uiElements.Add(EnergyBar);
         }
 
         public void Update(Game1 game)
@@ -31,29 +29,20 @@ namespace Wildlands.UI
 
         public void Draw(Game1 game)
         {
-            // Draw all base UI elements
-            foreach (UIElement elem in baseUI) elem.Draw(game);
-
-            // If menu open
-            if (MenuOpen)
-            {
-                // Draw all menu UI elements
-                foreach (UIElement elem in menuUI) elem.Draw(game);
-            }
+            // Draw UI elements
+            foreach (UIElement elem in uiElements) elem.Draw(game);
         }
 
         public void OnSave()
         {
             // Save all UI elements
-            foreach (UIElement elem in baseUI) elem.OnSave();
-            foreach (UIElement elem in menuUI) elem.OnSave();
+            foreach (UIElement elem in uiElements) elem.OnSave();
         }
 
         public void OnLoad()
         {
             // Load all UI elements
-            foreach (UIElement elem in baseUI) elem.OnLoad();
-            foreach (UIElement elem in menuUI) elem.OnLoad();
+            foreach (UIElement elem in uiElements) elem.OnLoad();
         }
 
         public void ProcessClick(Game1 game, Point mousePosition) { }
@@ -61,8 +50,7 @@ namespace Wildlands.UI
         public void UpdatePositioning()
         {
             // Update all UI element positions
-            foreach (UIElement elem in baseUI) elem.UpdatePosition();
-            foreach (UIElement elem in menuUI) elem.UpdatePosition();
+            foreach (UIElement elem in uiElements) elem.UpdatePosition();
         }
     }
 }

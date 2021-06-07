@@ -1,4 +1,4 @@
-﻿using Wildlands.UI;
+﻿using Wildlands.Items;
 
 namespace Wildlands.SaveLoad
 {
