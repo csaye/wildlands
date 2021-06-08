@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using Wildlands.Tiles;
 
@@ -11,7 +12,9 @@ namespace Wildlands.SaveLoad
         public TileData()
         {
             // Read default tile data from file
-            string text = File.ReadAllText("Content/TileData.json");
+            string currentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string path = Path.Combine(currentDirectory, "Content", "TileData.json");
+            string text = File.ReadAllText(path);
             tiles = JsonSerializer.Deserialize<Tile[]>(text);
         }
     }
