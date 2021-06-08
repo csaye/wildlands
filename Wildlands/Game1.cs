@@ -69,17 +69,10 @@ namespace Wildlands
             float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Get and process keyboard state
-            lastKeyboardState = keyboardState;
-            keyboardState = Keyboard.GetState();
-            if (IsKeyDown(Keys.Escape)) Exit();
-            if (IsKeyPressed(Keys.F)) Graphics.ToggleFullScreen();
-            if (IsKeyPressed(Keys.X)) SaveLoadManager.Save(this);
+            ProcessKeyboardState();
 
-            // Get mouse state
-            lastMouseState = mouseState;
-            mouseState = Mouse.GetState();
-            if (UIManager.MenuOpen) UIManager.ProcessClick(this, mouseState.Position);
-            else ObjectManager.ProcessClick(this, mouseState.Position);
+            // Get and process mouse state
+            ProcessMouseState();
 
             // If not paused
             if (!UIManager.MenuOpen)
@@ -127,10 +120,47 @@ namespace Wildlands
         // Returns whether given key has been pressed in the last frame
         public bool IsKeyPressed(Keys key) => keyboardState.IsKeyDown(key) && lastKeyboardState.IsKeyUp(key);
 
-        // Returns whether left click has been pressed in the last frame
-        public bool IsLeftClick() => mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released;
-        // Returns whether right click has been pressed in the last frame
-        public bool IsRightClick() => mouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Released;
+        // Processes current keyboard state
+        private void ProcessKeyboardState()
+        {
+            // Get keyboard state
+            lastKeyboardState = keyboardState;
+            keyboardState = Keyboard.GetState();
+
+            if (IsKeyDown(Keys.Escape)) Exit(); // Quit game
+            if (IsKeyPressed(Keys.F)) Graphics.ToggleFullScreen(); // Toggle fullscreen
+            if (IsKeyPressed(Keys.X)) SaveLoadManager.Save(this); // Save
+        }
+
+        // Processes current mouse state
+        private void ProcessMouseState()
+        {
+            // Get mouse state
+            lastMouseState = mouseState;
+            mouseState = Mouse.GetState();
+
+            // Whether left or right click has been pressed in last frame
+            bool leftClick = mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released;
+            bool rightClick = mouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Released;
+
+            // Process left click
+            if (leftClick)
+            {
+                // If menu open, click UI
+                if (UIManager.MenuOpen) UIManager.OnLeftClick(this, mouseState.Position);
+                // If menu closed, click objects
+                else ObjectManager.OnLeftClick(this, mouseState.Position);
+            }
+
+            // Process right click
+            if (rightClick)
+            {
+                // If menu open, click UI
+                if (UIManager.MenuOpen) UIManager.OnRightClick(this, mouseState.Position);
+                // If menu closed, click objects
+                else ObjectManager.OnRightClick(this, mouseState.Position);
+            }
+        }
 
         // Called when user resizes window
         private void OnScreenSizeChange(object sender, EventArgs e)
