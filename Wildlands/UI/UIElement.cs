@@ -39,8 +39,6 @@ namespace Wildlands.UI
 
         public abstract void Draw(Game1 game);
 
-        public virtual void OnSave() { }
-        public virtual void OnLoad() { }
         public virtual void OnLeftClick(Game1 game, Point mousePosition) { }
 
         // Updates element position based on screen size

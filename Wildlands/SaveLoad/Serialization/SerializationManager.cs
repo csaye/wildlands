@@ -23,16 +23,16 @@ namespace Wildlands.SaveLoad
             writer.Close();
         }
 
-        public static void Load(string fileName)
+        public static SaveData Load(string fileName)
         {
-            // Get path and return if no file exists
+            // Get path and return new save if no file exists
             string path = Path.Combine(DataPath, ProjectName, "Saves", $"{fileName}.xml");
-            if (!File.Exists(path)) return;
+            if (!File.Exists(path)) return new SaveData();
 
             // Read save data from file
             TextReader reader = new StreamReader(path);
             XmlSerializer xml = new XmlSerializer(typeof(SaveData));
-            SaveData.Current = (SaveData)xml.Deserialize(reader);
+            return (SaveData)xml.Deserialize(reader);
         }
 
         // Verifies that all necessary folders are created

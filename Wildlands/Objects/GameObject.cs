@@ -21,7 +21,7 @@ namespace Wildlands.Objects
         public virtual void Update(Game1 game, float delta) { }
         public abstract void Draw(Game1 game);
 
-        public virtual void OnSave() { }
-        public virtual void OnLoad() { }
+        public virtual void OnSave(Game1 game) { }
+        public virtual void OnLoad(Game1 game) { }
     }
 }

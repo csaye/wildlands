@@ -17,6 +17,8 @@ namespace Wildlands
         public GraphicsDeviceManager Graphics { get; private set; }
         public SpriteBatch SpriteBatch { get; private set; }
 
+        public SaveData SaveData { get; set; }
+
         public Camera Camera { get; private set; } = new Camera();
         public Inventory Inventory { get; private set; } = new Inventory();
         public TileManager TileManager { get; private set; } = new TileManager();
@@ -103,16 +105,16 @@ namespace Wildlands
 
         public void OnSave()
         {
-            TileManager.OnSave(); // Save tiles
-            ObjectManager.OnSave(); // Save objects
-            UIManager.OnSave(); // Save UI
+            TileManager.OnSave(this); // Save tiles
+            ObjectManager.OnSave(this); // Save objects
+            Inventory.OnSave(this); // Save inventory
         }
 
         public void OnLoad()
         {
-            TileManager.OnLoad(); // Load tiles
-            ObjectManager.OnLoad(); // Load objects
-            UIManager.OnLoad(); // Load UI
+            TileManager.OnLoad(this); // Load tiles
+            ObjectManager.OnLoad(this); // Load objects
+            Inventory.OnLoad(this); // Load inventory
         }
 
         // Returns whether given key is down

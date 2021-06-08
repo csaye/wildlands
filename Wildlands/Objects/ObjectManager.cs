@@ -67,20 +67,20 @@ namespace Wildlands.Objects
             }
         }
 
-        public void OnSave()
+        public void OnSave(Game1 game)
         {
             // Save all objects
-            foreach (GameObject obj in dynamicObjects) obj.OnSave();
+            foreach (GameObject obj in dynamicObjects) obj.OnSave(game);
             foreach (GameObject obj in staticObjects)
             {
-                if (obj != null) obj.OnSave();
+                if (obj != null) obj.OnSave(game);
             }
         }
 
-        public void OnLoad()
+        public void OnLoad(Game1 game)
         {
             // Load all objects
-            foreach (GameObject obj in dynamicObjects) obj.OnLoad();
+            foreach (GameObject obj in dynamicObjects) obj.OnLoad(game);
         }
 
         public void OnLeftClick(Game1 game, Point mousePosition) { }

@@ -1,6 +1,4 @@
-﻿using Wildlands.SaveLoad;
-
-namespace Wildlands.Items
+﻿namespace Wildlands.Items
 {
     public class Inventory
     {
@@ -14,14 +12,14 @@ namespace Wildlands.Items
 
         public Inventory() { }
 
-        public void OnSave()
+        public void OnSave(Game1 game)
         {
-            slots = SaveData.Current.inventoryData.slots;
+            slots = game.SaveData.inventoryData.slots;
         }
 
-        public void OnLoad()
+        public void OnLoad(Game1 game)
         {
-            SaveData.Current.inventoryData.slots = slots;
+            game.SaveData.inventoryData.slots = slots;
         }
 
         public ItemCount GetSlot(int i) => slots[i];

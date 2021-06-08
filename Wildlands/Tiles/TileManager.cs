@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using Wildlands.SaveLoad;
 
 namespace Wildlands.Tiles
 {
@@ -50,7 +49,7 @@ namespace Wildlands.Tiles
             }
         }
 
-        public void OnSave()
+        public void OnSave(Game1 game)
         {
             // Save tile data to file
             Tile[] tiles1D = new Tile[GridWidth * GridHeight];
@@ -63,13 +62,13 @@ namespace Wildlands.Tiles
                 }
             }
 
-            SaveData.Current.tileData.tiles = tiles1D;
+            game.SaveData.tileData.tiles = tiles1D;
         }
 
-        public void OnLoad()
+        public void OnLoad(Game1 game)
         {
             // Load tile data from file
-            Tile[] tiles1D = SaveData.Current.tileData.tiles;
+            Tile[] tiles1D = game.SaveData.tileData.tiles;
             for (int x = 0; x < GridWidth; x++)
             {
                 for (int y = 0; y < GridHeight; y++)

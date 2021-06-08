@@ -33,18 +33,6 @@ namespace Wildlands.UI
             foreach (UIElement elem in uiElements) elem.Draw(game);
         }
 
-        public void OnSave()
-        {
-            // Save all UI elements
-            foreach (UIElement elem in uiElements) elem.OnSave();
-        }
-
-        public void OnLoad()
-        {
-            // Load all UI elements
-            foreach (UIElement elem in uiElements) elem.OnLoad();
-        }
-
         public void OnLeftClick(Game1 game, Point mousePosition)
         {
             // For each UI element
