@@ -132,6 +132,8 @@ namespace Wildlands
             if (IsKeyDown(Keys.Escape)) Exit(); // Quit game
             if (IsKeyPressed(Keys.F)) Graphics.ToggleFullScreen(); // Toggle fullscreen
             if (IsKeyPressed(Keys.X)) SaveLoadManager.Save(this); // Save
+
+            if (IsKeyPressed(Keys.M)) Inventory.AddItem(Item.Flower, 1);
         }
 
         // Processes current mouse state

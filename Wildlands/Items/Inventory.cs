@@ -8,21 +8,20 @@
         public const int SlotCount = SlotCols * SlotRows;
 
         // Item data
-        private ItemCount[] slots = new ItemCount[SlotCount];
+        public ItemCount[] Slots { get; private set; } = new ItemCount[SlotCount];
+        public ItemCount CarrierSlot { get; set; } = new ItemCount();
 
         public Inventory() { }
 
         public void OnSave(Game1 game)
         {
-            slots = game.SaveData.inventoryData.slots;
+            Slots = game.SaveData.inventoryData.slots;
         }
 
         public void OnLoad(Game1 game)
         {
-            game.SaveData.inventoryData.slots = slots;
+            game.SaveData.inventoryData.slots = Slots;
         }
-
-        public ItemCount GetSlot(int i) => slots[i];
 
         // Attempts to add item to inventory and returns whether successful
         public bool AddItem(Item item, int count) => AddItem(new ItemCount(item, count));
@@ -34,9 +33,9 @@
             // Check for stackable slot
             for (int i = 0; i < SlotCount; i++)
             {
-                if (slots[i].Item == itemCount.Item)
+                if (Slots[i].Item == itemCount.Item)
                 {
-                    slots[i].Count += itemCount.Count;
+                    Slots[i].Count += itemCount.Count;
                     return true;
                 }
             }
@@ -44,9 +43,9 @@
             // Check for empty slot
             for (int i = 0; i < SlotCount; i++)
             {
-                if (slots[i].IsEmpty)
+                if (Slots[i].IsEmpty)
                 {
-                    slots[i] = itemCount;
+                    Slots[i] = itemCount;
                     return true;
                 }
             }

@@ -19,7 +19,7 @@ namespace Wildlands.Objects
 
         public override void Draw(Game1 game)
         {
-            Drawing.DrawRect(game, Bounds, Color.Blue);
+            Drawing.DrawRect(game, Bounds, Color.Red);
         }
 
         public override void OnSave(Game1 game)
