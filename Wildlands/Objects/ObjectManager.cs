@@ -83,7 +83,9 @@ namespace Wildlands.Objects
             foreach (GameObject obj in dynamicObjects) obj.OnLoad();
         }
 
-        public void ProcessClick(Game1 game, Point mousePosition) { }
+        public void OnLeftClick(Game1 game, Point mousePosition) { }
+
+        public void OnRightClick(Game1 game, Point mousePosition) { }
 
         // Processes the intersection between two bounds and returns a corrected new bounds position
         private Vector2 ProcessIntersection(Rectangle newBounds, Rectangle objBounds, Vector2 newPosition)

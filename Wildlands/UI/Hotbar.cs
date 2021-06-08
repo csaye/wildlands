@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Wildlands.Items;
 
 namespace Wildlands.UI
@@ -30,6 +31,13 @@ namespace Wildlands.UI
                 Drawing.DrawSprite(game, Drawing.ItemsTileset, slotRect, (int)itemCount.Item, Layers.UI);
                 if (itemCount.Count > 1) Drawing.DrawText(game, itemCount.Count.ToString(), slotPosition, Color.Black);
             }
+        }
+
+        public override void OnLeftClick(Game1 game, Point mousePosition)
+        {
+            Point click = mousePosition - position.ToPoint();
+            int slot = click.X / Drawing.Grid;
+            Console.WriteLine($"Clicked slot {slot}");
         }
     }
 }

@@ -45,7 +45,17 @@ namespace Wildlands.UI
             foreach (UIElement elem in uiElements) elem.OnLoad();
         }
 
-        public void ProcessClick(Game1 game, Point mousePosition) { }
+        public void OnLeftClick(Game1 game, Point mousePosition)
+        {
+            // For each UI element
+            foreach (UIElement elem in uiElements)
+            {
+                // If mouse position within bounds, click element
+                if (elem.Bounds.Contains(mousePosition)) elem.OnLeftClick(game, mousePosition);
+            }
+        }
+
+        public void OnRightClick(Game1 game, Point mousePosition) { }
 
         public void UpdatePositioning()
         {
